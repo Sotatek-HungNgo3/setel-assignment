@@ -1,0 +1,6 @@
+export enum IOrderStatus {
+  CREATED = 'CREATED',
+  CONFIRMED = 'CONFIRMED',
+  CANCELLED = 'CANCELLED',
+  DELIVERED = 'DELIVERED',
+}
