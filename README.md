@@ -2,7 +2,21 @@
 
 Microservice with NestJS backend and React frontend.
 
-## Installation
+## Usage
+
+This app already dockerized, you can take it and deploy anywhere.
+
+```bash
+docker-compose up --build
+```
+
+Then, client app can use at port: 9000
+
+## How to run in development
+
+You can can clone this app to your local marchine and run it as local development.
+
+Please follow these steps
 
 ```bash
 git clone https://github.com/Sotatek-HungNgo3/setel-practical-assignment.git setel-pratical-assignment
@@ -12,54 +26,15 @@ cd setel-pratical-assignment
 cd ./orders && npm i
 cd ../client && npm i
 cd ../payments && npm i
-cd ../
+cd ../gateway && npm i
+
+cd ../orders && npm run start:dev
+cd ../payments && npm run start: dev
+cd ../client && npm start
+cd ../gateway && npm run start:dev
 ```
 
-## Usage
-
-This application still in development. For now, I just use `docker-compose` to create Mongodb
-
-```bash
-docker-compose up --build
-```
-
-Leave that and you can go to next step
-
-The installation in development need a few step, please follow the guide step by step
-
-### Step 1: Start Order service
-
-```bash
-cd ./orders
-npm run start:dev
-```
-
-It will show the error, but don't worry, we will fix it.
-
-### Step 2: Start Payment service
-
-```bash
-cd ../payments
-npm run start:dev
-```
-
-### Step 3: Restart Order Service
-
-Now you can go back to the order service, shutdown the development server and start it again
-
-```bash
-cd ../orders
-npm run start:dev
-```
-
-### Step 4: Start React Application
-
-```bash
-cd ../client
-npm start
-```
-
-Now you ready to go.
+Note: This app need envinronment variables. So please add your `.env` file base on `.env.example` file that I have already attach.
 
 ## Testing
 
