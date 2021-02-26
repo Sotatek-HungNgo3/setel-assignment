@@ -14,7 +14,6 @@ import { getMe } from '../../features/auth/authSlice';
 import AlertManager from '../cores/alert/AlertManager';
 import DrawerManager from '../cores/drawer/DrawerManager';
 import ModalManager from '../cores/modal/ModalManager';
-// import socket from '../configs/socket';
 
 const useStyles = makeStyles(theme => ({
   app: {
@@ -50,30 +49,6 @@ function App() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // useEffect(() => {
-  //   socket.on('connect', () => {
-  //     console.log(socket.connected); // true
-  //   });
-
-  //   socket.on('disconnect', () => {
-  //     console.log(socket.connected); // false
-  //   });
-
-  //   socket.io.on('reconnection_attempt', () => {
-  //     // ...
-  //     console.log('reconnection_attempt');
-  //   });
-
-  //   socket.io.on('reconnect', () => {
-  //     // ...
-  //     console.log('reconnect');
-  //   });
-
-  //   socket.on('connect_error', () => {
-  //     console.log('connect error');
-  //   });
-  // }, []);
 
   return (
     <div>

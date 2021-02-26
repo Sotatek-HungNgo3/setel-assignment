@@ -1,40 +1,29 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 
 import { OrderModule } from './orders/order.module';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AddAuthUserMiddleware } from './common/middleware/add-auth-user.middleware';
-import { AuthMiddleware } from './common/middleware/auth.middleware';
-import { AuthModule } from './auth/auth.module';
+import configuration from './config/configuration';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      load: [configuration],
+    }),
     MongooseModule.forRootAsync({
       useFactory: () => {
-        console.log(process.env.MONGO_DSN);
+        console.log(configuration().mongoDns);
         return {
-          uri: process.env.MONGO_DSN,
+          uri: configuration().mongoDns,
           useNewUrlParser: true,
           useFindAndModify: false,
           useCreateIndex: true,
         };
       },
     }),
-    AuthModule,
     OrderModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AddAuthUserMiddleware)
-      .forRoutes('api/orders', '/api/me', '/api/logout')
-      .apply(AuthMiddleware)
-      .forRoutes('api/orders', 'api/me', 'api/logout');
-  }
-}
+export class AppModule {}

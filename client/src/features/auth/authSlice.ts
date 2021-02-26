@@ -12,7 +12,6 @@ interface AuthState {
 const initialState: AuthState = {
   loading: false,
   authenticated: false,
-  // user: null,
 };
 
 const login = createAsyncThunk<User, undefined, { rejectValue: any[] }>(

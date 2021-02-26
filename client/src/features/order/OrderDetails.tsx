@@ -11,9 +11,10 @@ import Skeleton from '@material-ui/lab/Skeleton';
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import OrderStatus from './OrderStatus';
-import { IOrderStatus, Order } from '../../app/types/order';
+import { Order } from '../../app/types/order';
 import orderAPI from '../../app/api/orderAPI';
 import useAlert from '../../hooks/useAlert';
+import { IOrderStatus } from '@setel-practical-assignment/common';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -84,11 +85,6 @@ const OrderDetails: React.FC = () => {
           })
           .catch(err => {
             console.log(err);
-            // if (err as FieldError) {
-            //   err.forEach((e: FieldError) => {
-            //     alertError(e.message);
-            //   });
-            // }
           })
           .finally(() => {
             setLoading(false);

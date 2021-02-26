@@ -30,6 +30,7 @@
     "@nestjs/platform-socket.io": "^7.6.13",
     "@nestjs/websockets": "^7.6.13",
     "@setel-app/common": "^1.0.0",
+    "@setel-practical-assignment/common": "^1.0.10",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "mongoose": "^5.11.18",

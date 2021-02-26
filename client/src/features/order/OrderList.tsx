@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import MaterialTable, { Action, Column } from 'material-table';
 import { useHistory } from 'react-router-dom';
 
@@ -32,7 +32,6 @@ const OrderList: React.FC = () => {
   const classes = useStyles();
   const theme = useTheme();
   const history = useHistory();
-  const [loading, setLoading] = useState(false);
 
   const columns: Column<RowData>[] = [
     {
@@ -89,8 +88,6 @@ const OrderList: React.FC = () => {
     },
   ];
 
-  console.log(loading);
-
   return (
     <div className={classes.container}>
       <Typography variant='h3' className={classes.title}>
@@ -128,7 +125,6 @@ const OrderList: React.FC = () => {
           },
           debounceInterval: 500,
           search: false,
-          // selection: true,
         }}
         isLoading={false}
       />

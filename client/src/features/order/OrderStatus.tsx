@@ -5,7 +5,7 @@ import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
-import { IOrderStatus } from '../../app/types/order';
+import { IOrderStatus } from '@setel-practical-assignment/common';
 
 interface Props {
   status: IOrderStatus;

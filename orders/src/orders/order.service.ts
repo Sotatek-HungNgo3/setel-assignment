@@ -1,13 +1,14 @@
-import { UpdateOrderDto } from './update-order.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-
-import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
-import { PaginationResponse } from '../common/interfaces/pagination-response.interface';
-import { IOrderStatus } from '../common/interfaces/order-status.interface';
-import { CreateOrderDto } from './create-order.dto';
-import { IOrder } from './interfaces/order.interface';
+import {
+  CreateOrderDto,
+  IOrder,
+  IOrderStatus,
+  PaginationQuery,
+  PaginationResponse,
+  UpdateOrderDto,
+} from '@setel-practical-assignment/common';
 
 @Injectable()
 export class OrderService {
@@ -16,7 +17,7 @@ export class OrderService {
   ) {}
 
   async getListOrder(
-    query: PaginationQueryDto,
+    query: PaginationQuery,
   ): Promise<PaginationResponse<IOrder>> {
     const { page = 1, limit = 10 } = query;
 

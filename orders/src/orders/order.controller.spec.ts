@@ -5,13 +5,15 @@ import * as mongoose from 'mongoose';
 import { OrderController } from './order.controller';
 import { OrderService } from './order.service';
 import { OrderSchema } from './order.schema';
-import { IOrderStatus } from '../common/interfaces/order-status.interface';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from '../auth/auth.module';
 import { OrderModule } from './order.module';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+import {
+  IOrderStatus,
+  PaginationQuery,
+} from '@setel-practical-assignment/common';
 
 let mongo: any;
 
@@ -81,19 +83,18 @@ describe('AppController', () => {
       const total = 123;
       const status = IOrderStatus.CREATED;
 
-      const order = await orderController.createOrder(
-        {
-          total,
-          userId,
-          status,
-        },
-        { user: { id: userId } },
-      );
+      const order = await orderController.createOrder({
+        total,
+        userId,
+        status,
+      });
 
-      const cancelledOrder = await orderController.cancelledOrder(order.id);
+      const cancelledOrder = await orderController.cancelOrder({
+        orderId: order.data.id,
+      });
 
-      expect(cancelledOrder.id).toEqual(order.id);
-      expect(cancelledOrder.status).toEqual(IOrderStatus.CANCELLED);
+      expect(cancelledOrder.data.id).toEqual(order.data.id);
+      expect(cancelledOrder.data.status).toEqual(IOrderStatus.CANCELLED);
     });
   });
 
@@ -103,42 +104,33 @@ describe('AppController', () => {
       const total = 123;
       const status = IOrderStatus.CREATED;
 
-      await orderController.createOrder(
-        {
-          total,
-          userId,
-          status,
-        },
-        { user: { id: userId } },
-      );
-      await orderController.createOrder(
-        {
-          total,
-          userId,
-          status,
-        },
-        { user: { id: userId } },
-      );
-      await orderController.createOrder(
-        {
-          total,
-          userId,
-          status,
-        },
-        { user: { id: userId } },
-      );
+      await orderController.createOrder({
+        total,
+        userId,
+        status,
+      });
+      await orderController.createOrder({
+        total,
+        userId,
+        status,
+      });
+      await orderController.createOrder({
+        total,
+        userId,
+        status,
+      });
 
-      const query: PaginationQueryDto = {
+      const query: PaginationQuery = {
         page: 1,
         limit: 10,
       };
 
-      const paginatedOrder = await orderController.getListOrder(query);
+      const paginatedOrder = await orderController.getOrderList(query);
 
-      expect(paginatedOrder.limit).toEqual(query.limit);
-      expect(paginatedOrder.page).toEqual(query.page);
-      expect(paginatedOrder.totalDocs).toEqual(3);
-      expect(paginatedOrder.totalPages).toEqual(1);
+      expect(paginatedOrder.data.limit).toEqual(query.limit);
+      expect(paginatedOrder.data.page).toEqual(query.page);
+      expect(paginatedOrder.data.totalDocs).toEqual(3);
+      expect(paginatedOrder.data.totalPages).toEqual(1);
     });
   });
 
@@ -148,19 +140,18 @@ describe('AppController', () => {
       const total = 123;
       const status = IOrderStatus.CREATED;
 
-      const newOrder = await orderController.createOrder(
-        {
-          total,
-          userId,
-          status,
-        },
-        { user: { id: userId } },
-      );
+      const newOrderRes = await orderController.createOrder({
+        total,
+        userId,
+        status,
+      });
 
-      const order = await orderController.getOrder(newOrder.id);
+      const orderRes = await orderController.getOrder({
+        orderId: newOrderRes.data._id,
+      });
 
-      expect(order.id).toEqual(newOrder.id);
-      expect(order.total).toEqual(newOrder.total);
+      expect(orderRes.data.id).toEqual(newOrderRes.data.id);
+      expect(orderRes.data.total).toEqual(newOrderRes.data.total);
     });
   });
 
@@ -170,18 +161,18 @@ describe('AppController', () => {
       const total = 123;
       const status = IOrderStatus.CREATED;
 
-      const newOrder = await orderController.createOrder(
-        {
-          total,
-          userId,
-          status,
-        },
-        { user: { id: userId } },
-      );
+      const newOrder = await orderController.createOrder({
+        total,
+        userId,
+        status,
+      });
 
-      const orderStatus = await orderController.checkOrderStatus(newOrder.id);
+      const orderStatusRes = await orderController.checkOrderStatus({
+        orderId: newOrder.data.id,
+      });
+      console.log(orderStatusRes);
       const isStatusValid = Object.values(IOrderStatus).some(
-        (stt) => stt === orderStatus,
+        (stt) => stt === orderStatusRes.data,
       );
 
       expect(isStatusValid).toEqual(true);
@@ -194,19 +185,16 @@ describe('AppController', () => {
       const total = 123;
       const status = IOrderStatus.CREATED;
 
-      const order = await orderController.createOrder(
-        {
-          total,
-          userId,
-          status,
-        },
-        { user: { id: userId } },
-      );
+      const order = await orderController.createOrder({
+        total,
+        userId,
+        status,
+      });
 
-      expect(order).toHaveProperty('id');
-      expect(order.total).toEqual(total);
-      expect(order.userId).toEqual(userId);
-      expect(order.status).toEqual(status);
+      expect(order.data).toHaveProperty('_id');
+      expect(order.data.total).toEqual(total);
+      expect(order.data.userId).toEqual(userId);
+      expect(order.data.status).toEqual(status);
     });
   });
 });

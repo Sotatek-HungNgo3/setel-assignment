@@ -1,7 +1,7 @@
 import axiosClient from './axiosClient';
 
 import { Order } from '../types/order';
-import { PaginationResponse } from '../types/pagination-response';
+import { PaginationResponse } from '@setel-practical-assignment/common';
 
 const getOrders = async (args: {
   page?: number;

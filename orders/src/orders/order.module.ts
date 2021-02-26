@@ -3,7 +3,6 @@ import { OrderService } from './order.service';
 import { OrderController } from './order.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { OrderSchema } from './order.schema';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -11,13 +10,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       {
         name: 'Order',
         schema: OrderSchema,
-      },
-    ]),
-    ClientsModule.register([
-      {
-        name: 'ORDER_SERVICE',
-        transport: Transport.TCP,
-        options: { host: '0.0.0.0', port: 4040 },
       },
     ]),
   ],

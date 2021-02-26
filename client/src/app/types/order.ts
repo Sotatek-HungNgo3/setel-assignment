@@ -1,9 +1,4 @@
-export enum IOrderStatus {
-  CREATED = 'CREATED',
-  CONFIRMED = 'CONFIRMED',
-  CANCELLED = 'CANCELLED',
-  DELIVERED = 'DELIVERED',
-}
+import { IOrderStatus } from '@setel-practical-assignment/common';
 
 export interface Order {
   id: string;

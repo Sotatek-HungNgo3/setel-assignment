@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { IOrderStatus } from '../common/interfaces/order-status.interface';
+import { IOrderStatus } from '@setel-practical-assignment/common';
 
 @Injectable()
 export class PaymentService {

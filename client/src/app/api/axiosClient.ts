@@ -20,9 +20,14 @@ axiosClient.interceptors.request.use(async config => {
 
 axiosClient.interceptors.response.use(
   response => {
-    if (response && response.data) {
-      return response.data;
+    if (
+      response &&
+      response.data &&
+      (response.data.status === 200 || response.data.status === 201)
+    ) {
+      return response.data.data;
     }
+
     return response;
   },
   error => {

@@ -1,7 +1,7 @@
 # compiled output
 /dist
 build/
-/node_modules
+node_modules/
 
 # Logs
 logs
@@ -35,4 +35,6 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # Mount data
-db/data
+deploy/db/data
+
+.env
