@@ -1,40 +1,42 @@
 version: '3.3'
 services:
-  setel-orders:
-    build: ./orders
-    restart: always
-    container_name: setel-orders
-    ports:
-      - '4000:4000'
-    env_file:
-      - .env
-    network_mode: host
-    depends_on:
-      - mongodb
-      - setel-payments
-    # networks:
-    #   - backend
+  # setel-orders:
+  #   build: ./orders
+  #   # restart: always
+  #   restart: '10'
+  #   container_name: setel-orders
+  #   ports:
+  #     - '4000:4000'
+  #   env_file:
+  #     - .env
+  #   network_mode: host
+  #   depends_on:
+  #     - mongodb
+  #     # - setel-payments
+  #   # networks:
+  #   #   - backend
 
-  setel-payments:
-    build: ./payments
-    restart: always
-    container_name: setel-payments
-    env_file:
-      - .env
-    network_mode: host
-    # depends_on:
-    #   - setel-orders
+  # setel-payments:
+  #   build: ./payments
+  #   # restart: always
+  #   restart: '10'
+  #   container_name: setel-payments
+  #   env_file:
+  #     - .env
+  #   network_mode: host
+  #   # depends_on:
+  #   #   - setel-orders
 
-  setel-client:
-    build: ./client
-    container_name: setel-client
-    ports:
-      - '9000:9000'
-    env_file:
-      - .env
-    network_mode: host
-    # networks:
-    #   - backend
+  # setel-client:
+  #   build: ./client
+  #   container_name: setel-client
+  #   ports:
+  #     - '9000:9000'
+  #   env_file:
+  #     - .env
+  #   network_mode: host
+  #   # networks:
+  #   #   - backend
 
   mongodb:
     image: mongo:latest
@@ -49,13 +51,4 @@ services:
       - '$PWD/db/data:/data/db:z'
       - '$PWD/db/mongod.conf:/etc/mongod.conf:z'
     command: [--auth]
-    network_mode: host
-
-    # networks:
-    #   - backend
-# networks:
-#   backend:
-#     driver: bridge
-#   frontend:
-#     external:
-#       name: infrastructure
+    # network_mode: host

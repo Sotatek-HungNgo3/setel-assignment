@@ -4,7 +4,7 @@ import { Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const logger = new Logger('Order');
+  const logger = new Logger('Payment');
 
   const subscriptionPort = process.env.PAYMENT_SERVICE_SUBSCRIPTION_PORT;
 
@@ -18,6 +18,6 @@ async function bootstrap() {
     },
   });
   app.listen(() => console.log('Microservice is listening in Payment service'));
-  logger.log('Order service created successful');
+  logger.log('Payment service created successful');
 }
 bootstrap();
