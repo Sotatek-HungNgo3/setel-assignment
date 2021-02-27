@@ -59,7 +59,7 @@ export class OrderController {
       message: orderCreateRes.message,
     };
   }
-  @Put('/cancelled/:id')
+  @Put('/:id/cancel')
   async cancelledOrder(@Param('id') id: string): Promise<IOrderCancelRes> {
     const orderCancelRes: IOrderCancelRes = await this.orderSrvClient
       .send('order_cancel', { orderId: id })
@@ -105,7 +105,7 @@ export class OrderController {
       message: orderGetListRes.message,
     };
   }
-  @Get('/status/:id')
+  @Get('/:id/status')
   async checkOrderStatus(
     @Param('id') id: string,
   ): Promise<IOrderCheckStatusRes> {
